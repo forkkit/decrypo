@@ -56,14 +56,3 @@ func (s *Storage) Save(c decryptor.Clip, r io.Reader) error {
 	log.Printf(filename)
 	return ioutil.WriteFile(filename, buf, os.ModePerm)
 }
-
-func (s *Storage) SavePlaceholder(c decryptor.Clip) error {
-	path, err := s.generatePath(c.Module)
-	if err != nil {
-		return err
-	}
-	filename := filepath.Join(path, fmt.Sprintf("%v.txt", pathFriendlyTitle(fmt.Sprintf("%v - %v", c.Order, c.Title))))
-	log.Printf(filename)
-	return ioutil.WriteFile(filename, []byte("Clip is not present offline. Download it and retry."), os.ModePerm)
-
-}

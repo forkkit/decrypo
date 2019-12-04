@@ -16,10 +16,6 @@ func (s *Service) DecryptAll() error {
 		for _, module := range course.Modules {
 			for _, clip := range module.Clips {
 				if !s.Clips.ExistsByID(clip.ID) {
-					err := s.Storage.SavePlaceholder(clip)
-					if err != nil {
-						return err
-					}
 					continue
 				}
 				r, err := s.Clips.GetContentByID(clip.ID)
