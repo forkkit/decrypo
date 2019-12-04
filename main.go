@@ -38,9 +38,7 @@ func main() {
 		Clips: &pluralsight.ClipRepository{
 			Path: *clips,
 		},
-		Courses: &pluralsight.CourseRepository{
-			Path: *db,
-		},
+		Courses: &courses,
 	}
 	bar := pb.StartNew(clipCount)
 	err = svc.DecryptAll(func(_ decryptor.Clip, _ *string) {
