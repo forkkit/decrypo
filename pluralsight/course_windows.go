@@ -14,7 +14,7 @@ type CourseRepository struct {
 }
 
 func getClipsForModule(modID int, mod *decryptor.Module, db *sql.DB) error {
-	raw, err := db.Query(fmt.Sprintf("select ZTITLE, ZID, ZOFFLINECLIP from ZCLIPCD where ZMODULE=%v order by Z_FOK_MODULE asc", modID))
+	raw, err := db.Query(fmt.Sprintf("select Title, Name from Clip where ModuleId=%v order by ClipIndex asc", modID))
 	if err != nil {
 		return err
 	}
@@ -23,17 +23,15 @@ func getClipsForModule(modID int, mod *decryptor.Module, db *sql.DB) error {
 	for raw.Next() {
 		var title string
 		var id string
-		var offline sql.NullInt32
-		err = raw.Scan(&title, &id, &offline)
+		err = raw.Scan(&title, &id)
 		if err != nil {
 			return err
 		}
 		clip := decryptor.Clip{
-			Order:     ord,
-			Title:     title,
-			ID:        id,
-			IsOffline: offline.Valid,
-			Module:    mod,
+			Order:  ord,
+			Title:  title,
+			ID:     id,
+			Module: mod,
 		}
 		mod.Clips = append(mod.Clips, clip)
 		ord++
@@ -41,8 +39,8 @@ func getClipsForModule(modID int, mod *decryptor.Module, db *sql.DB) error {
 	return nil
 }
 
-func getModulesForCourse(cID int, c *decryptor.Course, db *sql.DB) error {
-	raw, err := db.Query(fmt.Sprintf("select Z_PK, ZTITLE from ZMODULECD where ZCOURSE=%v order by Z_FOK_COURSE asc", cID))
+func getModulesForCourse(cName string, c *decryptor.Course, db *sql.DB) error {
+	raw, err := db.Query(fmt.Sprintf("select Id, Title from Module where CourseName=%v order by ModuleIndex asc", cName))
 	if err != nil {
 		return err
 	}
@@ -77,16 +75,16 @@ func (r *CourseRepository) FindAll() ([]decryptor.Course, error) {
 		return nil, err
 	}
 	defer db.Close()
-	raw, err := db.Query("select Z_PK, ZTITLE from ZCOURSEHEADERCD")
+	raw, err := db.Query("select Name, Title from Course")
 	if err != nil {
 		return nil, err
 	}
 	defer raw.Close()
 	courses := make([]decryptor.Course, 0)
 	for raw.Next() {
-		var id int
+		var name string
 		var title string
-		err = raw.Scan(&id, &title)
+		err = raw.Scan(&name, &title)
 		if err != nil {
 			return courses, err
 		}
@@ -94,7 +92,7 @@ func (r *CourseRepository) FindAll() ([]decryptor.Course, error) {
 			Title:   title,
 			Modules: make([]decryptor.Module, 0),
 		}
-		err = getModulesForCourse(id, &course, db)
+		err = getModulesForCourse(name, &course, db)
 		if err != nil {
 			return courses, err
 		}

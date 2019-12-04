@@ -15,7 +15,7 @@ func (s *Service) DecryptAll() error {
 	for _, course := range courses {
 		for _, module := range course.Modules {
 			for _, clip := range module.Clips {
-				if !clip.IsOffline {
+				if !s.Clips.ExistsByID(clip.ID) {
 					err := s.Storage.SavePlaceholder(clip)
 					if err != nil {
 						return err
@@ -26,6 +26,7 @@ func (s *Service) DecryptAll() error {
 				if err != nil {
 					return err
 				}
+				defer r.Close()
 				dec := s.Decoder.Decode(r)
 				err = s.Storage.Save(clip, dec)
 				if err != nil {
