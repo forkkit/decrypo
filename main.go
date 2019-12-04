@@ -6,6 +6,7 @@ import (
 	"github.com/ajdnik/decrypo/decryptor"
 	"github.com/ajdnik/decrypo/file"
 	"github.com/ajdnik/decrypo/pluralsight"
+	"github.com/cheggaaa/pb/v3"
 )
 
 func main() {
@@ -22,6 +23,13 @@ func main() {
 	output := flag.String("output", "./Pluralsight Courses/", "location of decrypted courses")
 	flag.Parse()
 
+	courses := pluralsight.CourseRepository{
+		Path: *db,
+	}
+	clipCount, err := courses.ClipCount()
+	if err != nil {
+		panic(err)
+	}
 	svc := decryptor.Service{
 		Decoder: &pluralsight.Decoder{},
 		Storage: &file.Storage{
@@ -34,7 +42,11 @@ func main() {
 			Path: *db,
 		},
 	}
-	err = svc.DecryptAll()
+	bar := pb.StartNew(clipCount)
+	err = svc.DecryptAll(func(_ decryptor.Clip, _ *string) {
+		bar.Increment()
+	})
+	bar.Finish()
 	if err != nil {
 		panic(err)
 	}

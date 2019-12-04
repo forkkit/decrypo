@@ -1,5 +1,7 @@
 package decryptor
 
+type OnDecrypted func(Clip, *string)
+
 type Service struct {
 	Decoder Decoder
 	Storage Storage
@@ -7,7 +9,7 @@ type Service struct {
 	Clips   ClipRepository
 }
 
-func (s *Service) DecryptAll() error {
+func (s *Service) DecryptAll(evt OnDecrypted) error {
 	courses, err := s.Courses.FindAll()
 	if err != nil {
 		return err
@@ -16,17 +18,23 @@ func (s *Service) DecryptAll() error {
 		for _, module := range course.Modules {
 			for _, clip := range module.Clips {
 				if !s.Clips.ExistsByID(clip.ID) {
+					if evt != nil {
+						evt(clip, nil)
+					}
 					continue
 				}
 				r, err := s.Clips.GetContentByID(clip.ID)
 				if err != nil {
 					return err
 				}
-				defer r.Close()
 				dec := s.Decoder.Decode(r)
-				err = s.Storage.Save(clip, dec)
+				file, err := s.Storage.Save(clip, dec)
 				if err != nil {
 					return err
+				}
+				r.Close()
+				if evt != nil {
+					evt(clip, &file)
 				}
 			}
 		}

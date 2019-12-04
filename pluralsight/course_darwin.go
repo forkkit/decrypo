@@ -9,6 +9,10 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+var (
+	unknownCount = -1
+)
+
 type CourseRepository struct {
 	Path string
 }
@@ -99,4 +103,26 @@ func (r *CourseRepository) FindAll() ([]decryptor.Course, error) {
 		courses = append(courses, course)
 	}
 	return courses, nil
+}
+
+func (r *CourseRepository) ClipCount() (int, error) {
+	db, err := sql.Open("sqlite3", r.Path)
+	if err != nil {
+		return unknownCount, err
+	}
+	defer db.Close()
+	raw, err := db.Query("select count(*) from ZCLIPCD")
+	if err != nil {
+		return unknownCount, err
+	}
+	defer raw.Close()
+	if !raw.Next() {
+		return unknownCount, sql.ErrNoRows
+	}
+	var count int
+	err = raw.Scan(&count)
+	if err != nil {
+		return unknownCount, err
+	}
+	return count, nil
 }

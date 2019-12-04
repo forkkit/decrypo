@@ -2,12 +2,63 @@
 
 
 [[projects]]
+  digest = "1:e626376fab8608a972d47e91b3c1bbbddaecaf1d42b82be6dcc52d10a7557893"
+  name = "github.com/VividCortex/ewma"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "b24eb346a94c3ba12c1da1e564dbac1b498a77ce"
+  version = "v1.1.1"
+
+[[projects]]
+  digest = "1:32b52c54987da7f5b958d9fd5a671ebc1dfbad0dbba1099a2883576ffc7055f4"
+  name = "github.com/cheggaaa/pb"
+  packages = [
+    "v3",
+    "v3/termutil",
+  ]
+  pruneopts = "UT"
+  revision = "e2fc8a7ecc44accb2ab1cfae39909553d83827c7"
+  version = "v3.0.3"
+
+[[projects]]
+  digest = "1:938a2672d6ebbb7f7bc63eee3e4b9464c16ffcf77ec8913d3edbf32b4e3984dd"
+  name = "github.com/fatih/color"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "570b54cabe6b8eb0bc2dfce68d964677d63b5260"
+  version = "v1.5.0"
+
+[[projects]]
   digest = "1:e30ac47ee84d7d354e0a284cf742e3015400667e90aa3d6ae99c7a55da67c645"
   name = "github.com/kennygrant/sanitize"
   packages = ["."]
   pruneopts = "UT"
   revision = "06ec0d0dbcd497d01e5189b16f5263f712e61a8e"
   version = "v1.2.4"
+
+[[projects]]
+  digest = "1:4a29eeb25603debe8f2098a9902c4d3851034cf70d33be428826e86e8c30a1b0"
+  name = "github.com/mattn/go-colorable"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "98ec13f34aabf44cc914c65a1cfb7b9bc815aef1"
+  version = "v0.1.4"
+
+[[projects]]
+  digest = "1:d62282425ffb75047679d7e2c3b980eea7f82c05ef5fb9142ee617ebac6e7432"
+  name = "github.com/mattn/go-isatty"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "88ba11cfdc67c7588b30042edf244b2875f892b6"
+  version = "v0.0.10"
+
+[[projects]]
+  digest = "1:871aa208665f8c57d13ed13899c243454858ee6654cc4feed768096bcea6fbc3"
+  name = "github.com/mattn/go-runewidth"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "18c3d09a134a52720932bbaa92c798a0ab111004"
+  version = "v0.0.7"
 
 [[projects]]
   digest = "1:f4d329a16a6f1a7f694148ec7531f85d62cfa6a79bb8200ca612667e40d09923"
@@ -28,10 +79,19 @@
   pruneopts = "UT"
   revision = "ef20fe5d793301b553005db740f730d87993f778"
 
+[[projects]]
+  branch = "master"
+  digest = "1:4da420ceda5f68e8d748aa2169d0ed44ffadb1bbd6537cf778a49563104189b8"
+  name = "golang.org/x/sys"
+  packages = ["unix"]
+  pruneopts = "UT"
+  revision = "ce4227a45e2eb77e5c847278dcc6a626742e2945"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/cheggaaa/pb/v3",
     "github.com/kennygrant/sanitize",
     "github.com/mattn/go-sqlite3",
   ]

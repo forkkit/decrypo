@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"os"
 	"path/filepath"
 
@@ -43,16 +42,15 @@ func (s *Storage) generatePath(mod *decryptor.Module) (string, error) {
 	return path, nil
 }
 
-func (s *Storage) Save(c decryptor.Clip, r io.Reader) error {
+func (s *Storage) Save(c decryptor.Clip, r io.Reader) (string, error) {
 	path, err := s.generatePath(c.Module)
 	if err != nil {
-		return err
+		return unknown, err
 	}
 	filename := filepath.Join(path, fmt.Sprintf("%v.mp4", pathFriendlyTitle(fmt.Sprintf("%v %v", c.Order, c.Title))))
 	buf, err := ioutil.ReadAll(r)
 	if err != nil {
-		return err
+		return unknown, err
 	}
-	log.Printf(filename)
-	return ioutil.WriteFile(filename, buf, os.ModePerm)
+	return filename, ioutil.WriteFile(filename, buf, os.ModePerm)
 }

@@ -36,3 +36,7 @@
 [[constraint]]
   name = "github.com/mattn/go-sqlite3"
   version = "1.13.0"
+
+[[constraint]]
+  name = "github.com/cheggaaa/pb"
+  version = "3.0.3"
