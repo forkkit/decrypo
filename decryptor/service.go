@@ -1,7 +1,10 @@
 package decryptor
 
+// OnDecrypted defines a callback function called when a video clip is decrypted
 type OnDecrypted func(Clip, *string)
 
+// Service represents the decryption service which decrypts video courses
+// and stores the courses in a readable format
 type Service struct {
 	Decoder Decoder
 	Storage Storage
@@ -9,6 +12,7 @@ type Service struct {
 	Clips   ClipRepository
 }
 
+// DecryptAll decrypts all of the video courses contained in the courses repository
 func (s *Service) DecryptAll(evt OnDecrypted) error {
 	courses, err := s.Courses.FindAll()
 	if err != nil {

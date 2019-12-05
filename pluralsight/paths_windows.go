@@ -9,6 +9,7 @@ var (
 	unknown = ""
 )
 
+// GetClipPath returns a default path where Pluralsight desktop app stores encrypted video clips
 func GetClipPath() (string, error) {
 	home, err := os.UserHomeDir()
 	if err != nil {
@@ -17,6 +18,7 @@ func GetClipPath() (string, error) {
 	return filepath.Join(home, "AppData\\Local\\Pluralsight\\courses"), nil
 }
 
+// GetDbPath returns a default path where Pluralsight desktop app stores its sqlite database
 func GetDbPath() (string, error) {
 	home, err := os.UserHomeDir()
 	if err != nil {

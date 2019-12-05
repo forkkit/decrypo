@@ -13,11 +13,12 @@ import (
 )
 
 var (
-	ErrNil      = errors.New("value is nil")
-	ErrNoCourse = errors.New("course is nil")
-	unknown     = ""
+	// ErrNil defines an error sent when an unexpected value is nil
+	ErrNil  = errors.New("value is nil")
+	unknown = ""
 )
 
+// Storage implements the video clip storage interface which stores clips to the filesystem
 type Storage struct {
 	Path string
 }
@@ -26,12 +27,13 @@ func pathFriendlyTitle(title string) string {
 	return sanitize.BaseName(title)
 }
 
+// generatePath generates a filesystem path where the clip can be saved
 func (s *Storage) generatePath(mod *decryptor.Module) (string, error) {
 	if mod == nil {
 		return unknown, ErrNil
 	}
 	if mod.Course == nil {
-		return unknown, ErrNoCourse
+		return unknown, ErrNil
 	}
 	path := filepath.Join(s.Path, pathFriendlyTitle(mod.Course.Title))
 	path = filepath.Join(path, pathFriendlyTitle(fmt.Sprintf("%v - %v", mod.Order, mod.Title)))
@@ -42,6 +44,7 @@ func (s *Storage) generatePath(mod *decryptor.Module) (string, error) {
 	return path, nil
 }
 
+// Save stores the decrypted video clip to teh filesystem
 func (s *Storage) Save(c decryptor.Clip, r io.Reader) (string, error) {
 	path, err := s.generatePath(c.Module)
 	if err != nil {

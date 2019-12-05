@@ -8,10 +8,12 @@ import (
 	"strings"
 )
 
+// ClipRepository fetches encrypted video clips stored on the filesystem
 type ClipRepository struct {
 	Path string
 }
 
+// GetContentByID fetches an encrypted video clip stored on the filesystem based on clip's id
 func (r *ClipRepository) GetContentByID(ID string) (io.ReadCloser, error) {
 	repID := strings.ReplaceAll(ID, "-", "")
 	f, err := os.Open(filepath.Join(r.Path, fmt.Sprintf("%v.psv", repID)))
@@ -21,6 +23,7 @@ func (r *ClipRepository) GetContentByID(ID string) (io.ReadCloser, error) {
 	return f, nil
 }
 
+// ExistsByID checks weather a video clip file exists
 func (r *ClipRepository) ExistsByID(ID string) bool {
 	repID := strings.ReplaceAll(ID, "-", "")
 	cPath := filepath.Join(r.Path, fmt.Sprintf("%v.psv", repID))

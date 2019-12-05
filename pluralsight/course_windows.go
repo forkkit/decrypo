@@ -13,10 +13,12 @@ var (
 	unknownCount = -1
 )
 
+// CourseRepository fetches video course info from an sqlite database
 type CourseRepository struct {
 	Path string
 }
 
+// getClipsForModule retrieves video clips from an sqlite database that belong to a module
 func getClipsForModule(modID int, mod *decryptor.Module, db *sql.DB) error {
 	raw, err := db.Query(fmt.Sprintf("select Title, Name from Clip where ModuleId=%v order by ClipIndex asc", modID))
 	if err != nil {
@@ -43,6 +45,7 @@ func getClipsForModule(modID int, mod *decryptor.Module, db *sql.DB) error {
 	return nil
 }
 
+// getModulesForCourse retrieves course modules from an sqlite database that belong to a video course
 func getModulesForCourse(cName string, c *decryptor.Course, db *sql.DB) error {
 	raw, err := db.Query(fmt.Sprintf("select Id, Title from Module where CourseName=%v order by ModuleIndex asc", cName))
 	if err != nil {
@@ -73,6 +76,7 @@ func getModulesForCourse(cName string, c *decryptor.Course, db *sql.DB) error {
 	return nil
 }
 
+// FindAll finds all of the video courses in the Pluralsight's sqlite database
 func (r *CourseRepository) FindAll() ([]decryptor.Course, error) {
 	db, err := sql.Open("sqlite3", r.Path)
 	if err != nil {
@@ -105,6 +109,7 @@ func (r *CourseRepository) FindAll() ([]decryptor.Course, error) {
 	return courses, nil
 }
 
+// ClipCount returns the number of all video clips in the Pluralsight's database
 func (r *CourseRepository) ClipCount() (int, error) {
 	db, err := sql.Open("sqlite3", r.Path)
 	if err != nil {
