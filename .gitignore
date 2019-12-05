@@ -12,5 +12,4 @@
 *.out
 
 # Release artifacts
-build
 dist

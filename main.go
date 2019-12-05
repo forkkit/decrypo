@@ -2,7 +2,10 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"os"
 
+	"github.com/ajdnik/decrypo/build"
 	"github.com/ajdnik/decrypo/decryptor"
 	"github.com/ajdnik/decrypo/file"
 	"github.com/ajdnik/decrypo/pluralsight"
@@ -21,7 +24,13 @@ func main() {
 	clips := flag.String("clips", defClip, "location of clip .psv files")
 	db := flag.String("db", defDb, "location of sqlite file")
 	output := flag.String("output", "./Pluralsight Courses/", "location of decrypted courses")
+	version := flag.Bool("v", false, "print tool version")
 	flag.Parse()
+
+	if *version {
+		fmt.Println(build.Version())
+		os.Exit(0)
+	}
 
 	courses := pluralsight.CourseRepository{
 		Path: *db,
