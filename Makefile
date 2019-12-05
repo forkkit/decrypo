@@ -30,7 +30,7 @@ compile: clean prepare
 dist: compile
 	$(eval FILES := $(shell ls dist/gox))
 	@for f in $(FILES); do \
-		(cd $(shell pwd)/dist/gox/$$f && tar -cvzf ../../dist/arch/$$f.tar.gz *); \
+		(cd $(shell pwd)/dist/gox/$$f && tar -cvzf ../../arch/$$f.tar.gz *); \
 		(cd $(shell pwd)/dist/arch && shasum -a 256 $$f.tar.gz > $$f.sha256); \
 		echo $$f; \
 	done
