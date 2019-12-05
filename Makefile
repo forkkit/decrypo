@@ -1,6 +1,6 @@
 BINARY=decrypo
 GITHUB_REPO="ajdnik/decrypo"
-VERSION="0.2.2"
+VERSION="0.2.3"
 TIME=`date +%FT%T%z`
 LDFLAGS=-ldflags "-s -w -X github.com/${GITHUB_REPO}/build.version=${VERSION} -X github.com/${GITHUB_REPO}/build.datetime=${TIME}"
 
