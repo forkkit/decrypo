@@ -1,6 +1,6 @@
 BINARY=decrypo
 GITHUB_REPO="ajdnik/decrypo"
-VERSION="0.1.0"
+VERSION="0.2.0"
 BUILD=`date +%FT%T%z`
 LDFLAGS=-ldflags "-s -w"
 
