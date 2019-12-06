@@ -4,10 +4,6 @@ os:
 - windows
 - osx
 
-branches:
-  only:
-  - master
-
 env:
   global:
   - CGO_ENABLED=1
