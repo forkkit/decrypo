@@ -1,6 +1,35 @@
 
+<a name="0.2.4"></a>
+## [0.2.4](https://github.com/ajdnik/decrypo/compare/0.2.3...0.2.4) (2019-12-06)
+
+### Chore
+
+* empty test
+* osx deployment script
+* initial travis config
+* command usage in readme
+* comments
+
+### Feat
+
+* updated release workflow
+* travis build config
+* env variables via parameters
+* windows deploy script
+
+### Fix
+
+* remove hardcoded values
+* osx deploy
+
+
 <a name="0.2.3"></a>
 ## [0.2.3](https://github.com/ajdnik/decrypo/compare/0.2.2...0.2.3) (2019-12-05)
+
+### Chore
+
+* version bumped
+* updated changelog
 
 ### Fix
 
