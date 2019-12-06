@@ -20,6 +20,8 @@ New-Item "dist/$($Name)" -ItemType Directory
 $LDFlags = "-s -w -X github.com/ajdnik/decrypo/build.version=$($TravisTag) -X github.com/ajdnik/decrypo/build.datetime=$($Time)"
 $Output = "dist/$($Name)/decrypo.exe"
 
+Set-Item -Path Env:CGO_ENABLED -Value 1
+
 & go build -ldflags $LDFlags -o $Output
 
 Add-Type -assembly "system.io.compression.filesystem"

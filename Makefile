@@ -6,18 +6,14 @@ changelog:
 
 devdeps:
 	go get -u github.com/git-chglog/git-chglog/cmd/git-chglog
-	go get -u github.com/c4milo/github-release
 
-release: changelog
+tag: changelog
 	git add CHANGELOG.md
 	git commit -m "chore: updated changelog"
 	git add Makefile
 	git commit -m "chore: version bumped"
+	git tag $VERSION
 	git push
-	git-chglog -c .chglog/release/config.yml -o RELEASE.md --next-tag ${VERSION} ${VERSION}
-	github-release $(GITHUB_REPO) $(VERSION) "$$(git rev-parse --abbrev-ref HEAD)" "## Changelog<br/>$$(cat RELEASE.md)" ""
-	@rm RELEASE.md
-	git pull
 
 default: changelog
 
