@@ -1,9 +1,11 @@
 
-<a name="0.2.4"></a>
-## [0.2.4](https://github.com/ajdnik/decrypo/compare/0.2.3...0.2.4) (2019-12-06)
+<a name="0.2.5"></a>
+## [0.2.5](https://github.com/ajdnik/decrypo/compare/0.2.3...0.2.5) (2019-12-06)
 
 ### Chore
 
+* version bumped
+* updated changelog
 * version bumped
 * updated changelog
 * empty test
