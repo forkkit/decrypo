@@ -1,8 +1,18 @@
-$Time = Get-Date -Format "yyyy-MM-ddTHH:mm:ssK"
-$TravisOS = Get-Variable TRAVIS_OS_NAME -valueOnly
-$TravisArch = Get-Variable TRAVIS_CPU_ARCH -valueOnly
-$TravisTag = Get-Variable TRAVIS_TAG -valueOnly
+param(
+    [Parameter(Mandatory=$True, Position=0, ValueFromPipeline=$false)]
+    [System.String]
+    $TravisOS,
 
+    [Parameter(Mandatory=$True, Position=1, ValueFromPipeline=$false)]
+    [System.String]
+    $TravisArch,
+    
+	[Parameter(Mandatory=$True, Position=2, ValueFromPipeline=$false)]
+    [System.String]
+    $TravisTag
+)
+
+$Time = Get-Date -Format "yyyy-MM-ddTHH:mm:ssK"
 $Name = "$($TravisOS)_$($TravisArch)"
 
 New-Item "dist/$($Name)" -ItemType Directory
