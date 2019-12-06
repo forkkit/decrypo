@@ -1,0 +1,31 @@
+language: go
+go: '1.13'
+os:
+- windows
+- osx
+
+branches:
+  only:
+  - master
+
+env:
+  global:
+  - CGO_ENABLED=1
+
+script:
+- go test -v ./tests/...
+
+before_deploy:
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then bash scripts/osx.sh; fi
+- if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then powershell -executionpolicy bypass
+  -command "scripts/windows.ps1 -TravisOS ${TRAVIS_OS_NAME} -TravisArch ${TRAVIS_CPU_ARCH}
+  -TravisTag ${TRAVIS_TAG}"; fi
+
+deploy:
+  provider: releases
+  file_glob: true
+  file: dist/*
+  token:
+    secure: uTF8YQIFe9Au6Xq9DwqGW/e9JGOuzOXcCQsFtXGOLwQFhrKIGGtx8lr9dwRdrThNeAmpYUlJulwf/3Bq227rpKeYkbpkXLWTpBLfBHPde7Eqbj3VC/u9uxm9AkAnEqeFXeJhTFe+cxYjRuZTGGT3iFXwHMUI3t+EZX1DgVK5Q7H24FfIr2bTdstTySXqN67IiM6jMK89kUHEVDCuo8bG+52PaxXxy6Cp8jaDEeF0FbFeLw2mbwZ0pDj8y8y3qVG3mo9KuMhOF4XcqjhJWalDEbljBIebzzfAgnJmmdmsR6GmTrNzHf/IsnaF3YWFr0BO9ocTYu3pBgr4FHQ3mHqV7ALxhKxcAXT9OumtKzD6lRm3SfB4s+wGrYPMa+fakso5rpdTbXHsi178hAjfKrNywkyDMznsCDranlbLs7m3rEIIZSu7dM9zxmVlI0TgSx9xwUInS4QTTJ5sYSfAqJewBMtmxWDktTpaU+7TGpubF79tWLpPXvtfAx47m/R1pkgqP1Q0+e5hnFgapNELXITsunkUm5OvvCLiGtwt1+ZqwIOsGJVutzyf+QjW/KPYB2i52StIzPb/+xfpILV7GunbRzoUpdNHSzWhSNLIDtjQnGSNha9B/OXbNJRd4pya/SwB+uPDG3vbDqKMKHx7C4U7f9K/544iixsWRQUQSE81exs=
+  on:
+    tags: true
