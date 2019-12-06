@@ -21,4 +21,4 @@ release: changelog
 
 default: changelog
 
-.PHONY: dist release changelog compile devdeps clean prepare
+.PHONY: changelog devdeps release
