@@ -1,23 +1,5 @@
 jobs:
   include:
-    - stage: OSX build
-      os: osx
-      language: go
-      go: "1.13"
-      script:
-        - go test -v ./tests/...
-      before_deploy:
-        - bash scripts/osx.sh
-      deploy:
-        provider: releases
-        file_glob: true
-        file: dist/*
-        draft: true
-        release_notes_file: RELEASE.md
-        token:
-          secure: uTF8YQIFe9Au6Xq9DwqGW/e9JGOuzOXcCQsFtXGOLwQFhrKIGGtx8lr9dwRdrThNeAmpYUlJulwf/3Bq227rpKeYkbpkXLWTpBLfBHPde7Eqbj3VC/u9uxm9AkAnEqeFXeJhTFe+cxYjRuZTGGT3iFXwHMUI3t+EZX1DgVK5Q7H24FfIr2bTdstTySXqN67IiM6jMK89kUHEVDCuo8bG+52PaxXxy6Cp8jaDEeF0FbFeLw2mbwZ0pDj8y8y3qVG3mo9KuMhOF4XcqjhJWalDEbljBIebzzfAgnJmmdmsR6GmTrNzHf/IsnaF3YWFr0BO9ocTYu3pBgr4FHQ3mHqV7ALxhKxcAXT9OumtKzD6lRm3SfB4s+wGrYPMa+fakso5rpdTbXHsi178hAjfKrNywkyDMznsCDranlbLs7m3rEIIZSu7dM9zxmVlI0TgSx9xwUInS4QTTJ5sYSfAqJewBMtmxWDktTpaU+7TGpubF79tWLpPXvtfAx47m/R1pkgqP1Q0+e5hnFgapNELXITsunkUm5OvvCLiGtwt1+ZqwIOsGJVutzyf+QjW/KPYB2i52StIzPb/+xfpILV7GunbRzoUpdNHSzWhSNLIDtjQnGSNha9B/OXbNJRd4pya/SwB+uPDG3vbDqKMKHx7C4U7f9K/544iixsWRQUQSE81exs=
-        on:
-          tags: true
     - stage: Windows build
       os: windows
       language: go
@@ -30,7 +12,27 @@ jobs:
         provider: releases
         file_glob: true
         file: dist/*
+        draft: true
+        cleanup: false
+        token:
+          secure: uTF8YQIFe9Au6Xq9DwqGW/e9JGOuzOXcCQsFtXGOLwQFhrKIGGtx8lr9dwRdrThNeAmpYUlJulwf/3Bq227rpKeYkbpkXLWTpBLfBHPde7Eqbj3VC/u9uxm9AkAnEqeFXeJhTFe+cxYjRuZTGGT3iFXwHMUI3t+EZX1DgVK5Q7H24FfIr2bTdstTySXqN67IiM6jMK89kUHEVDCuo8bG+52PaxXxy6Cp8jaDEeF0FbFeLw2mbwZ0pDj8y8y3qVG3mo9KuMhOF4XcqjhJWalDEbljBIebzzfAgnJmmdmsR6GmTrNzHf/IsnaF3YWFr0BO9ocTYu3pBgr4FHQ3mHqV7ALxhKxcAXT9OumtKzD6lRm3SfB4s+wGrYPMa+fakso5rpdTbXHsi178hAjfKrNywkyDMznsCDranlbLs7m3rEIIZSu7dM9zxmVlI0TgSx9xwUInS4QTTJ5sYSfAqJewBMtmxWDktTpaU+7TGpubF79tWLpPXvtfAx47m/R1pkgqP1Q0+e5hnFgapNELXITsunkUm5OvvCLiGtwt1+ZqwIOsGJVutzyf+QjW/KPYB2i52StIzPb/+xfpILV7GunbRzoUpdNHSzWhSNLIDtjQnGSNha9B/OXbNJRd4pya/SwB+uPDG3vbDqKMKHx7C4U7f9K/544iixsWRQUQSE81exs=
+        on:
+          tags: true
+    - stage: OSX build
+      os: osx
+      language: go
+      go: "1.13"
+      script:
+        - go test -v ./tests/...
+      before_deploy:
+        - bash scripts/osx.sh
+      deploy:
+        provider: releases
+        file_glob: true
+        file: dist/*
         draft: false
+        cleanup: false
+        release_notes_file: RELEASE.md
         token:
           secure: uTF8YQIFe9Au6Xq9DwqGW/e9JGOuzOXcCQsFtXGOLwQFhrKIGGtx8lr9dwRdrThNeAmpYUlJulwf/3Bq227rpKeYkbpkXLWTpBLfBHPde7Eqbj3VC/u9uxm9AkAnEqeFXeJhTFe+cxYjRuZTGGT3iFXwHMUI3t+EZX1DgVK5Q7H24FfIr2bTdstTySXqN67IiM6jMK89kUHEVDCuo8bG+52PaxXxy6Cp8jaDEeF0FbFeLw2mbwZ0pDj8y8y3qVG3mo9KuMhOF4XcqjhJWalDEbljBIebzzfAgnJmmdmsR6GmTrNzHf/IsnaF3YWFr0BO9ocTYu3pBgr4FHQ3mHqV7ALxhKxcAXT9OumtKzD6lRm3SfB4s+wGrYPMa+fakso5rpdTbXHsi178hAjfKrNywkyDMznsCDranlbLs7m3rEIIZSu7dM9zxmVlI0TgSx9xwUInS4QTTJ5sYSfAqJewBMtmxWDktTpaU+7TGpubF79tWLpPXvtfAx47m/R1pkgqP1Q0+e5hnFgapNELXITsunkUm5OvvCLiGtwt1+ZqwIOsGJVutzyf+QjW/KPYB2i52StIzPb/+xfpILV7GunbRzoUpdNHSzWhSNLIDtjQnGSNha9B/OXbNJRd4pya/SwB+uPDG3vbDqKMKHx7C4U7f9K/544iixsWRQUQSE81exs=
         on:
