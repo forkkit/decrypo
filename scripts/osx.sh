@@ -1,5 +1,14 @@
 #! /bin/bash
 
+# only exit with zero if all commands of the pipeline exit successfully
+set -o pipefail
+# error on unset variables
+set -u
+
+TRAVIS_OS_NAME="osx"
+TRAVIS_CPU_ARCH="amd64"
+TRAVIS_TAG="0.2.3"
+
 TIME=`date +%FT%T%z`
 NAME="${TRAVIS_OS_NAME}_${TRAVIS_CPU_ARCH}"
 
@@ -9,6 +18,6 @@ go build -ldflags "-s -w -X github.com/ajdnik/decrypo/build.version=${TRAVIS_TAG
 
 cd "dist/${NAME}" && tar -cvzf "../${NAME}.tar.gz" *
 
-cd dist && shasum -a 256 "${NAME}.tar.gz" > "${NAME}.sha256"
+cd ../ && shasum -a 256 "${NAME}.tar.gz" > "${NAME}.sha256"
 
-rm -rf "dist/${NAME}"
+rm -rf "${NAME}"
