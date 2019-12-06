@@ -20,4 +20,4 @@ rm -rf "${NAME}"
 
 go get -u github.com/git-chglog/git-chglog/cmd/git-chglog
 
-cd ../ && git-chglog -c .chglog/release/config.yml -o RELEASE.md --next-tag ${TRAVIS_TAG} ${TRAVIS_TAG}
+cd ../ && git-chglog -c .chglog/release/config.yml -o RELEASE.md ${TRAVIS_TAG}
