@@ -12,8 +12,8 @@ tag: changelog
 	git commit -m "chore: updated changelog"
 	git add Makefile
 	git commit -m "chore: version bumped"
-	git tag $VERSION
-	git push
+	git tag ${VERSION}
+	git push --follow-tags
 
 default: changelog
 
