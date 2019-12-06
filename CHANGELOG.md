@@ -1,9 +1,11 @@
 
-<a name="0.2.8"></a>
-## 0.2.8 (2019-12-06)
+<a name="0.2.9"></a>
+## 0.2.9 (2019-12-06)
 
 ### Chore
 
+* version bumped
+* updated changelog
 * version bumped
 * updated changelog
 * version bumped
