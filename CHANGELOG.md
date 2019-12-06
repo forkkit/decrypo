@@ -4,6 +4,8 @@
 
 ### Chore
 
+* version bumped
+* updated changelog
 * empty test
 * osx deployment script
 * initial travis config
@@ -19,6 +21,7 @@
 
 ### Fix
 
+* github release files param
 * remove hardcoded values
 * osx deploy
 
