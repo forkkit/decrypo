@@ -5,10 +5,6 @@ set -o pipefail
 # error on unset variables
 set -u
 
-TRAVIS_OS_NAME="osx"
-TRAVIS_CPU_ARCH="amd64"
-TRAVIS_TAG="0.2.3"
-
 TIME=`date +%FT%T%z`
 NAME="${TRAVIS_OS_NAME}_${TRAVIS_CPU_ARCH}"
 
