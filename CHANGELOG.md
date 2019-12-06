@@ -1,6 +1,19 @@
 
+<a name="0.2.7"></a>
+## [0.2.7](https://github.com/ajdnik/decrypo/compare/0.2.6...0.2.7) (2019-12-06)
+
+### Fix
+
+* travis release creation
+
+
 <a name="0.2.6"></a>
 ## [0.2.6](https://github.com/ajdnik/decrypo/compare/0.2.5...0.2.6) (2019-12-06)
+
+### Chore
+
+* version bumped
+* updated changelog
 
 ### Fix
 
