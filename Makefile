@@ -1,5 +1,5 @@
 GITHUB_REPO="ajdnik/decrypo"
-VERSION="0.2.8"
+VERSION="0.2.9"
 
 changelog:
 	git-chglog -c .chglog/changelog/config.yml -o CHANGELOG.md --next-tag ${VERSION} ..${VERSION}
@@ -12,8 +12,9 @@ tag: changelog
 	git commit -m "chore: updated changelog"
 	git add Makefile
 	git commit -m "chore: version bumped"
+	git push
 	git tag ${VERSION}
-	git push --follow-tags
+	git push origin ${VERSION}
 
 default: changelog
 
