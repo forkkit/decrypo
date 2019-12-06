@@ -1,9 +1,19 @@
 
+<a name="0.2.6"></a>
+## [0.2.6](https://github.com/ajdnik/decrypo/compare/0.2.5...0.2.6) (2019-12-06)
+
+### Fix
+
+* travis tagged branch blacklist
+
+
 <a name="0.2.5"></a>
 ## [0.2.5](https://github.com/ajdnik/decrypo/compare/0.2.3...0.2.5) (2019-12-06)
 
 ### Chore
 
+* version bumped
+* updated changelog
 * version bumped
 * updated changelog
 * version bumped
