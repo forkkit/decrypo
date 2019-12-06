@@ -1,9 +1,19 @@
 
+<a name="0.2.11"></a>
+## [0.2.11](https://github.com/ajdnik/decrypo/compare/0.2.10...0.2.11) (2019-12-06)
+
+### Fix
+
+* generate release change log cont.
+
+
 <a name="0.2.10"></a>
 ## 0.2.10 (2019-12-06)
 
 ### Chore
 
+* version bumped
+* updated changelog
 * version bumped
 * updated changelog
 * version bumped
